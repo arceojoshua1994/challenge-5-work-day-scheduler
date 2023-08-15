@@ -19,7 +19,7 @@ A simple calendar app for scheduling your work day. It allows you to add importa
 
 ## Usage
 
-![alt-text](./assets/images/Screenshot%202023-07-30%20at%2010.48.42%20AM.png)
+![alt-text](./assets/images/Screenshot%202023-08-14%20at%209.27.30%20PM.png)
 
 1. Open the `index.html` file in a web browser.
 2. The current date will be displayed at the top of the calendar.
