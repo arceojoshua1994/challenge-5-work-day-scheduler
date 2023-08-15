@@ -18,6 +18,9 @@ A simple calendar app for scheduling your work day. It allows you to add importa
 - Persists the saved events even after page refresh.
 
 ## Usage
+
+![alt-text](./assets/images/Screenshot%202023-07-30%20at%2010.48.42%20AM.png)
+
 1. Open the `index.html` file in a web browser.
 2. The current date will be displayed at the top of the calendar.
 3. Scroll down to view the time blocks for the day.

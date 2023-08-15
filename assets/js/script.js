@@ -1,33 +1,9 @@
 $(document).ready(function() {
-  // Display the current day at the top of the calendar
-  var currentDay = dayjs().format("dddd, MMMM D");
-  $("#currentDay").text(currentDay);
-
-  // Add event listeners to the save buttons
-  $(".saveBtn").on("click", function() {
-    var timeBlockId = $(this).parent().attr("id");
-    var eventText = $(this).siblings(".description").val();
-    localStorage.setItem(timeBlockId, eventText);
-  });
-
-  // Load saved events from local storage
-  function loadEvents() {
-    $(".time-block").each(function() {
-      var timeBlockId = $(this).attr("id");
-      var savedEvent = localStorage.getItem(timeBlockId);
-      if (savedEvent) {
-        $(this).find(".description").val(savedEvent);
-      }
-    });
-  }
-  loadEvents();
-
-  // Update time block colors based on the current time
-  function updateTimeBlocks() {
+  function updateEventColors() {
     var currentHour = dayjs().hour();
 
     $(".time-block").each(function() {
-      var timeBlockHour = parseInt($(this).attr("id").split("-")[1]);
+      var timeBlockHour = parseInt($(this).data("hour"));
 
       if (timeBlockHour < currentHour) {
         $(this).removeClass("present future").addClass("past");
@@ -38,5 +14,35 @@ $(document).ready(function() {
       }
     });
   }
-  updateTimeBlocks();
+
+  function loadEvents() {
+    $(".time-block").each(function() {
+      var timeBlockId = $(this).data("hour");
+      var savedEvent = localStorage.getItem(timeBlockId);
+      if (savedEvent) {
+        $(this).find(".description").val(savedEvent);
+      }
+    });
+  }
+
+  function initScheduler() {
+    // Display the current day at the top of the calendar
+    $("#currentDay").text(dayjs().format("dddd, MMMM D"));
+
+    // Add event listeners to the save buttons using event delegation
+    $(".container-lg").on("click", ".saveBtn", function() {
+      var timeBlock = $(this).closest(".time-block");
+      var timeBlockId = timeBlock.data("hour");
+      var eventText = timeBlock.find(".description").val();
+      localStorage.setItem(timeBlockId, eventText);
+    });
+
+    // Load saved events from local storage
+    loadEvents();
+
+    // Update time block colors based on the current time
+    updateEventColors();
+  }
+
+  initScheduler();
 });
